@@ -1,0 +1,37 @@
+apiVersion: '2021-10-01'
+location: northeurope
+type: Microsoft.ContainerInstance/containerGroups
+identity: 
+  type: UserAssigned
+  userAssignedIdentities: {
+    '/subscriptions/XXX/resourcegroups/gen-purpose-resources/providers/microsoft.managedidentity/userassignedidentities/moimhossainuami': {}
+    }
+properties:
+  osType: Linux
+  imageRegistryCredentials:
+  - server: moimharegx23.azurecr.io
+    identity: '/subscriptions/xxx/resourcegroups/gen-purpose-resources/providers/microsoft.managedidentity/userassignedidentities/moimhossainuami'
+  subnetIds:
+  - id: '/subscriptions/xxx/resourceGroups/ACI-Networking/providers/Microsoft.Network/virtualNetworks/aci-vnet/subnets/aci-subnet'
+    name: aci-vnet
+  containers:
+  - name: moimhax1
+    properties:
+      resources:
+        requests:
+          cpu: '.4'
+          memoryInGb: '1'
+      environmentVariables:
+        - name: CONTAINER
+          value: 1
+      image: 'moimharegx23.azurecr.io/hello-world:v1'
+  - name: moimhax2
+    properties:
+      resources:
+        requests:
+          cpu: '.4'
+          memoryInGb: '1'
+      environmentVariables:
+        - name: CONTAINER
+          value: 2
+      image: 'moimharegx23.azurecr.io/hello-world:v1'
